@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Layal's Portfolio</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0e6eb;
+    color: #222026;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  body.dark {
+    background-color: #222026;
+    color: #c88ea7;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 5rem;
+    flex-grow: 1;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 1rem 2rem;
+    background: transparent;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #c88ea7;
+  }
+
+  #toggle-theme {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #c88ea7;
+    transition: color 0.3s ease;
+  }
+  #toggle-theme:hover {
+    color: #ad7a99;
+  }
+  body.dark #toggle-theme {
+    color: #e0d8e6;
+  }
+  /* Gallery */
+#gallery {
+  margin: 4rem 0;
+  text-align: center;
+}
+
+.slider-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.slider-container img {
+  max-width: 100%;
+  width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease;
+}
+
+.slider-button {
+  background-color: #c88ea7;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slider-button:hover {
+  background-color: #ad7a99;
+}
+
+body.dark .slider-button {
+  background-color: #ad7a99;
+}
+
+body.dark .slider-button:hover {
+  background-color: #c88ea7;
+}
+
+
+  header {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+  }
+  header h1 {
+    font-family: 'Georgia', serif;
+    font-weight: 700;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+  header p {
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: #8a7f7f;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  body.dark header p {
+    color: #d9d7d7;
+  }
+
+  h2 {
+    font-family: 'Georgia', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    border-bottom: 2px solid #c88ea7;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    max-width: max-content;
+    color: #c88ea7;
+  }
+  body.dark h2 {
+    border-color: #ad7a99;
+    color: #ad7a99;
+  }
+
+  #about p {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    color: inherit;
+  }
+
+ #projects {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+  .project-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgb(200 142 167 / 0.15);
+    padding: 1.5rem;
+    transition: box-shadow 0.3s ease;
+  }
+  .project-card:hover {
+    box-shadow: 0 8px 20px rgb(200 142 167 / 0.35);
+  }
+  body.dark .project-card {
+    background: #3a3440;
+    box-shadow: 0 4px 12px rgb(173 122 153 / 0.3);
+  }
+  .project-card h3 {
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: inherit;
+  }
+  .project-card a {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background-color: #c88ea7;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  .project-card a:hover {
+    background-color: #ad7a99;
+  }
+
+  #contact form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+  #contact label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  #contact input, #contact textarea {
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid #c88ea7;
+    font-size: 1rem;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  #contact input:focus, #contact textarea:focus {
+    border-color: #ad7a99;
+    outline: none;
+  }
+  body.dark #contact input, body.dark #contact textarea {
+    background: #4a4154;
+    border-color: #ad7a99;
+    color: #e0d8e6;
+  }
+
+  #contact button {
+    background: #c88ea7;
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #contact button:hover {
+    background: #ad7a99;
+  }
+  @media (max-width: 600px) {
+  nav {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  .project-card {
+    padding: 1rem;
+  }
+
+  #contact form {
+    padding: 0 1rem;
+  }
+
+  .slider-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slider-button {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  #slider-image {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+  <button id="toggle-theme" aria-label="Toggle dark and light mode">🌙</button>
+</nav>
+
+<main class="container">
+  <header>
+    <h1>Layal's Portfolio</h1>
+    <p>Web Developer And A UI/UX Designer</p>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I'm a passionate Web Developer and UI/UX Designerstudied UI/UX Design with a deep passion for creating smooth, intuitive digital experiences that don’t just look good — they feel right. My work is rooted in user-centered thinking, from wireframes to interactive prototypes. I also specialize in web development, combining sleek visuals with clean, responsive code. Whether it's building front-end interfaces or mapping out seamless user journeys in Figma, I merge creativity with functionality to bring ideas to life. 
+    </p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="project-card">
+      <h3>UI/UX - Flower Shop App</h3>
+      <a href="https://www.figma.com/proto/SMTYFaYUqsHlma2F4r5Vt1/flowers?page-id=0%3A1&node-id=2-37&p=f&viewport=300%2C328%2C0.13&t=OmZGS8nhWqvcbaAm-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A3" target="_blank" rel="noopener noreferrer">View on Figma</a>
+    </div>
+
+    <div class="project-card">
+      <h3>UI/UX - Phone Login UI</h3>
+      <a href="https://www.figma.com/proto/yy0e8R7Utjzpq9t3AFr2pi/login-sign-phone?page-id=0%3A1&node-id=1-2&p=f&viewport=218%2C150%2C0.31&t=btLaY7Je4RQ6YVcD-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A9" target="_blank" rel="noopener noreferrer">View on Figma</a>
+    </div>
+
+    <div class="project-card">
+      <h3>UI/UX - Portfolio Small Project</h3>
+      <a href="https://www.figma.com/your-portfolio-link" target="_blank" rel="noopener noreferrer">View on Figma</a>
+    </div>
+  </section>
+  <section id="gallery">
+  <h2>Gallery</h2>
+  <div class="slider-container">
+    <button class="slider-button" id="prev-btn">⟨</button>
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Gallery Image" id="slider-image" />
+    <button class="slider-button" id="next-btn">⟩</button>
+  </div>
+</section>
+
+
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <form>
+      <label for="name">Name</label>
+      <input id="name" type="text" placeholder="Your name" required />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="Your email" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" rows="5" placeholder="Your message" required></textarea>
+
+      <button type="submit">Send</button>
+    </form>
+    <div style="text-align: center; margin-top: 2rem;">
+  <p>📍 Location: Lebanon</p>
+  <p>📧 Email: <a href="mailto:layalab7@gmail.com" style="color: #c88ea7; text-decoration: none;">layalab7@gmail.com</a></p>
+  <p>
+    <a href="https://www.instagram.com/layal.888?igsh=dzlzZmJjNvaWlm" target="_blank" style="color: #c88ea7; font-size: 1.6rem; text-decoration: none;">
+      <span style="font-size: 1.6rem;">📸</span> Instagram
+    </a>
+  </p>
+</div>
+
+  </section>
+</main>
+
+<script>
+  const toggleBtn = document.getElementById('toggle-theme');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    if(document.body.classList.contains('dark')) {
+      toggleBtn.textContent = '☀️';
+    } else {
+      toggleBtn.textContent = '🌙';
+    }
+  });
+</script>
+<script>
+  // Dark/light mode toggle
+  const toggleBtn = document.getElementById('toggle-theme');
+  const body = document.body;
+
+  toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    toggleBtn.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
+  });
+
+  // Image slider logic
+  const images = [
+    'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80'
+  ];
+
+  let currentIndex = 0;
+  const sliderImage = document.getElementById('slider-image');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  function showImage(index) {
+    sliderImage.src = images[index];
+  }
+
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  });
+
+  // Auto-slide every 4 seconds
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }, 4000);
+</script>
+
+
+</body>
+</html>
